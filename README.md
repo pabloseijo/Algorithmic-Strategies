@@ -71,15 +71,21 @@ First, we have to compile the program:
 gcc -o backtring mainBacktracking.c Backtring.c
 ```
 
-```
-gcc -o brachAndBound mainRamificacion.c RamificacionYPoda.c
-```
-
 After this, we execute it:
 
 ```
 ./backtring
 ```
+
+### Branch and Bound
+
+First, we have to compile the program:
+
+```
+gcc -o brachAndBound mainRamificacion.c RamificacionYPoda.c
+```
+
+After this, we execute it:
 
 ```
 ./brachAndBound
