@@ -98,6 +98,12 @@ Failure to follow these steps may result in incorrect program behavior or compil
 ## Contributors 👥
 - [Pablo Seijo]
 
+## Contact 📩
+
+Pablo Seijo García - [@__pabloseijo__](https://twitter.com/_pabloseijo_)
+
+Project Link: [https://github.com/pabloseijo/Algorithmic-Strategies](https://github.com/pabloseijo/TADGraph)
+
 ---
 
 Feel free to contribute to this project and suggest improvements! Happy coding! 💻😊
