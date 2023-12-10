@@ -48,17 +48,18 @@ Always using the `usadas` vector:
 
 ## How to Run 🏃‍♂️
 
-1. **Copy the Repository**:
-   ```
-   git clone https://github.com/pabloseijo/Algorithmic-Strategies.git
-   cd Algorithmic-Strategies
-   ```
+###Copy the Repository:
+
+```
+git clone https://github.com/pabloseijo/Algorithmic-Strategies.git
+cd Algorithmic-Strategies
+```
 
 ### Backtracking
 First, we have to compile the program:
 
 ```
-gcc -o backtracking mainBacktracking.c Backtring.c
+gcc -o backtracking mainBacktracking.c Backtracking.c
 ```
 
 After this, we execute it:
