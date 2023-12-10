@@ -356,10 +356,6 @@ void asignacionPrecisa(int B[][N], NODO s) {
     CSprecisa(&raiz, B);
     BE(&raiz);
 
-    printf("CI: %f\n", raiz.CI);
-    printf("CS: %f\n", raiz.CS);
-    printf("BE: %f\n", raiz.BE);
-
     // Inicialización variable de poda
     C = raiz.CI;
 
