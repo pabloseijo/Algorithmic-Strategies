@@ -416,7 +416,7 @@ void asignacionPrecisa(int B[][N], NODO s) {
     printf("\tBeneficio acumulado: %d\n", s.bact);
     printf("\tAsignaciones de tareas: { ");
     for (int i = 0; i < N; i++) {
-        printf("%d ", s.tupla[i]);
+        printf("%d ", s.tupla[i] + 1);
     }
     printf("}\n");
     printf("\tNumero de nodos explorados: %d\n\n", Nodos);
