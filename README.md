@@ -87,7 +87,7 @@ After this, we execute it:
 > **⚠️ IMPORTANT NOTICE:**  
 > When switching between different matrix configurations, please follow these steps carefully:
 > 1. **Matrix Selection**: If you wish to change the matrix being used, first uncomment the desired matrix code block. Then, make sure to comment out the currently active matrix code block to avoid conflicts.
-> 2. **Update Matrix Size**: After selecting the desired matrix, remember to update the matrix size in the `backtracking.h` file accordingly. This step ensures that the program operates with the correct dimensions for your chosen matrix configuration.
+> 2. **Update Matrix Size**: After selecting the desired matrix, remember to update the matrix size in the `backtracking.h` and `lista.h` file accordingly. This step ensures that the program operates with the correct dimensions for your chosen matrix configuration.
 
 Failure to follow these steps may result in incorrect program behavior or compilation errors. Please adjust the settings carefully to match your intended use case.
 
