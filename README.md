@@ -50,8 +50,8 @@ Always using the `usadas` vector:
 
 1. **Copy the Repository**:
    ```
-   git clone [URL of the repository]
-   cd [repository name]
+   git clone https://github.com/pabloseijo/Algorithmic-Strategies.git
+   cd Algorithmic-Strategies
    ```
 
 ### Backtracking
