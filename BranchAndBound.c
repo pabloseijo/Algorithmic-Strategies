@@ -3,7 +3,7 @@
 //
 
 #include <printf.h>
-#include "funcionesRamificacion.h"
+#include "BranchAndBound.h"
 #include "lista.h"
 
 /** FUNCIONES PRIVADAS **/
