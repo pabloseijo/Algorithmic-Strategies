@@ -48,12 +48,10 @@ Always using the `usadas` vector:
 
 ## How to Run 🏃‍♂️
 
-###Copy the Repository:
+### Copy the Repository:
 
 ```
 git clone https://github.com/pabloseijo/Algorithmic-Strategies.git
-```
-```
 cd Algorithmic-Strategies
 ```
 
