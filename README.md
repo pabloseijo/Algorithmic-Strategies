@@ -47,6 +47,13 @@ Always using the `usadas` vector:
 - `N` Number of nodes explored
 
 ## How to Run 🏃‍♂️
+
+1. **Copy the Repository**:
+   ```
+   git clone [URL of the repository]
+   cd [repository name]
+   ```
+
 ### Backtracking
 First, we have to compile the program:
 
