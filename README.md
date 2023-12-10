@@ -65,7 +65,7 @@ gcc -o backtracking mainBacktracking.c Backtracking.c
 After this, we execute it:
 
 ```
-./backtring
+./backtracking
 ```
 
 ### Branch and Bound
@@ -73,7 +73,7 @@ After this, we execute it:
 First, we have to compile the program:
 
 ```
-gcc -o brachAndBound mainBranch&Bound.c Branch&Bound.c lista.c
+gcc -o brachAndBound mainBranchAndBound.c BranchAndBound.c lista.c
 ```
 
 After this, we execute it:
