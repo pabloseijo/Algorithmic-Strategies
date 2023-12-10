@@ -52,6 +52,8 @@ Always using the `usadas` vector:
 
 ```
 git clone https://github.com/pabloseijo/Algorithmic-Strategies.git
+```
+```
 cd Algorithmic-Strategies
 ```
 
