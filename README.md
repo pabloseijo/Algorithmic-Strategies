@@ -51,7 +51,7 @@ Always using the `usadas` vector:
 First, we have to compile the program:
 
 ```
-gcc -o backtring mainBacktracking.c Backtring.c
+gcc -o backtracking mainBacktracking.c Backtring.c
 ```
 
 After this, we execute it:
@@ -65,7 +65,7 @@ After this, we execute it:
 First, we have to compile the program:
 
 ```
-gcc -o brachAndBound mainRamificacion.c RamificacionYPoda.c
+gcc -o brachAndBound mainBranch&Bound.c Branch&Bound.c lista.c
 ```
 
 After this, we execute it:
