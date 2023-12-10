@@ -1,4 +1,4 @@
-#include "funcionesRamificacion.h"
+#include "Branch&Bound.h"
 //N personas y N tareas
 
 //soa = {4,6,1,3,2,5} -- solucion
