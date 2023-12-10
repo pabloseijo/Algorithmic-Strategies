@@ -1,4 +1,4 @@
-#include "Branch&Bound.h"
+#include "BranchAndBound.h"
 //N personas y N tareas
 
 //soa = {4,6,1,3,2,5} -- solucion
