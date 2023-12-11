@@ -3,8 +3,6 @@
 
 #define n 3 // Tamaño de la matriz
 
-// Asumiendo que "Backtracking.h" es un archivo de cabecera personalizado, su inclusión y contenido dependen del contexto específico.
-
 // Variable global para la suma de elementos de la solución actual
 I64 bact = 0;
 
