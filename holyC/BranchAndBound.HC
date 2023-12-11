@@ -1,7 +1,6 @@
 // Created by Pablo Seijo on 28/11/23.
 
-// HolyC no utiliza archivos de cabecera de la misma manera que C, por lo que no es necesario incluir "printf.h".
-// La inclusión de "BranchAndBound.h" y "lista.h" dependerá de si estas implementaciones están disponibles en HolyC.
+#include "list.HC"
 
 // HolyC utiliza 'I64' para enteros de 64 bits.
 
