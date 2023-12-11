@@ -2,16 +2,7 @@
 
 #include "list.HC"
 
-// HolyC utiliza 'I64' para enteros de 64 bits.
-
-// Definición de la estructura NODO, si aún no está definida.
-// Deberías definir la estructura NODO y cualquier otra estructura o tipo de datos necesarios en HolyC.
-
-// Definición de N si no está definida previamente.
-#define N 3 // Suponiendo que N es el tamaño de la matriz.
-
-// Implementación de las funciones en HolyC.
-// Las funciones de C se traducirán a HolyC con algunos ajustes.
+// HolyC utiliza 'I64' para enteros de 64 bits
 
 // Función argmax
 I64 argmax(I64 fila, I64 B[][], NODO m) {
@@ -120,8 +111,6 @@ NODO seleccionar(TLISTA *LNV) {
     TPOSICION p = primeroLista(*LNV), auxPos = p;
     NODO aux, max;
 
-    // Suponemos que recuperarElementoLista obtiene el elemento en la posición 'p' de la lista 'LNV'
-    // y lo guarda en 'max'.
     recuperarElementoLista(*LNV, p, &max);
 
     p = siguienteLista(*LNV, p);
