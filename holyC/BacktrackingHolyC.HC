@@ -1,6 +1,8 @@
 // HolyC no tiene una biblioteca estándar como C, por lo que algunos incluidos pueden no ser necesarios o disponibles.
 // No hay necesidad de incluir <stdio.h> o <limits.h>, ya que HolyC proporciona funcionalidades integradas.
 
+#define n 3 // Tamaño de la matriz
+
 // Asumiendo que "Backtracking.h" es un archivo de cabecera personalizado, su inclusión y contenido dependen del contexto específico.
 
 // Variable global para la suma de elementos de la solución actual
