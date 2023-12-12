@@ -169,7 +169,6 @@ Void asignacionTrivial(I64 B[][], NODO s) {
     // Bucle principal
     While (!esListaVacia(LNV)) {
         x = seleccionar(&LNV);
-        nNodos++;
 
         If (x.CS > C) {
             For (I64 i = 0; i < N; i++) {
@@ -186,6 +185,8 @@ Void asignacionTrivial(I64 B[][], NODO s) {
                     CItrivial(&y);
                     CStrivial(&y, B);
                     BE(&y);
+
+                    nNodos++;
 
                     If (esSolucion(y) && y.bact > s.bact) {
                         s = y;
@@ -241,7 +242,6 @@ Void asignacionPrecisa(I64 B[][], NODO s) {
 
     While (!esListaVacia(LNV)) {
         x = seleccionar(&LNV);
-        Nodos++;
 
         If (x.CS > C) {
             For (I64 i = 0; i < N; i++) {
@@ -259,9 +259,12 @@ Void asignacionPrecisa(I64 B[][], NODO s) {
                     CSprecisa(&y, B);
                     BE(&y);
 
+                    nNodos++;
+
                     If (!esSolucion(y) && y.CS >= C && y.CS == y.CI) {
                         y = solAsignacionVoraz(y, B);
                         s = y;
+                        C = max(C,y.CI);
                         Break;
                     }
 
@@ -290,10 +293,3 @@ Void asignacionPrecisa(I64 B[][], NODO s) {
     Print("}\n");
     PrintF("\tNumero de nodos explorados: %d\n\n", Nodos);
 }
-
-
-// Otras funciones privadas y públicas se adaptarían de manera similar.
-// ...
-
-// Nota: La implementación exacta de cada función dependerá de cómo se define y se maneja la estructura NODO en HolyC,
-// así como del manejo de matrices y otros tipos de datos en el entorno específico de TempleOS.
