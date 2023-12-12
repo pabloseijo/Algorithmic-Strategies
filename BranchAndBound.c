@@ -3,8 +3,10 @@
 //
 
 #include <printf.h>
-#include "BranchAndBound.h"
+#include "funcionesRamificacion.h"
 #include "lista.h"
+
+int Nodos = 1; // Número de nodos vivos
 
 /** FUNCIONES PRIVADAS **/
 
@@ -22,7 +24,7 @@ int argmax(int fila, int B[][N], NODO m) {
     int indiceMax = -1; // Indice de la tarea con máximo beneficio
 
     for (int j = 0; j < N; j++) { // Recorrer fila de la matriz
-        if (m.usadas[j] == 0 && B[fila][j] > maxBeneficio) { // Si la tarea no está usada y el beneficio es mayor
+        if (!m.usadas[j]  && B[fila][j] > maxBeneficio) { // Si la tarea no está usada y el beneficio es mayor
             maxBeneficio = B[fila][j]; // Se guarda el beneficio asociado a la asignacion
             indiceMax = j;  // Se guarda el indice de la tarea con máximo beneficio
         }
@@ -42,11 +44,8 @@ int asignacionVoraz(NODO x, int B[][N]) {
 
     for (int i = x.nivel + 1; i < N; i++) { // Iterar sobre todas las personas
         int k = argmax(i, B, x);
-        if (k != -1) { // Si la tarea no está usada y existe una tarea viable
-            x.usadas[k] = 1; // Marcar la tarea como usada en el nodo
-            bacum += B[i][k]; // Agregar el beneficio de la tarea asignada al beneficio acumulado
-        }
-
+        x.usadas[k] = 1; // Marcar la tarea como usada en el nodo
+        bacum += B[i][k]; // Agregar el beneficio de la tarea asignada al beneficio acumulado
     }
 
     return bacum;
@@ -66,7 +65,7 @@ int maximosTareas(NODO x, int B[][N]) {
     for (int i = x.nivel + 1; i < N; i++) {
         int maxFila = 0;
         for (int j = 0; j < N; j++) {
-            if (B[i][j] > maxFila) {
+            if (B[i][j] > maxFila && !x.usadas[j]) {
                 maxFila = B[i][j];
             }
         }
@@ -84,9 +83,9 @@ int maximosTareas(NODO x, int B[][N]) {
  * @param B - matriz de beneficios
  * @return nodo hoja como solución
  */
-NODO solAsignacionVoraz(NODO x, int B[][N]) {
+NODO solAsignacionVoraz(NODO x, int B[][N]){
     int Bmax; // Para cada nivel, beneficio maximo en tareas no usadas
-    int tmax; // Para cada nivel, tarea con beneficio maximo no usada
+    int tmax = -1; // Para cada nivel, tarea con beneficio maximo no usada
 
     for (int i = x.nivel + 1; i < N; i++) { // Para cada nivel i
         //Busco en la fila i la tarea con beneficio maximo no usada
@@ -96,12 +95,14 @@ NODO solAsignacionVoraz(NODO x, int B[][N]) {
                 Bmax = B[i][j]; // Se guarda el beneficio asociado a la asignacion
                 tmax = j; // Se guarda tarea con máximo beneficio
             }
+            
         }
 
         // Actualizo x en nivel i con tarea tmax con beneficio Bmax
         x.tupla[i] = tmax; // Guardo tarea con Bmax para cada persona i
         x.usadas[tmax] = 1; // La tarea tmax se marca como usada
         x.bact += Bmax; // Se actualiza el beneficio acumulado para el nodo
+        Nodos++; // Incremento el número de nodos explorados
     }
 
     x.nivel = N - 1; // Para marcar el nodo como completo
@@ -139,19 +140,10 @@ void CIprecisa(NODO *x, int B[][N]){
  * @param x - nodo
  * @param B - matriz de beneficios
  */
-void CStrivial(NODO *x, int B[][N]){
-    int max = 0; // Máximo beneficio de una tarea
-    // Recorrer matriz de beneficios para encontrar el máximo
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if (B[i][j] > max) {
-                max = B[i][j];
-            }
-        }
-    }
+void CStrivial(NODO *x, int B[][N], float max){
     // Cota superior = beneficio acumulado + (número de tareas - nivel) * máximo beneficio
     //Casteamos a float para que no haya problemas con la asinacion a x->CS
-    x->CS += (float)x->bact + (float)(N - x->nivel) * (float)max;
+    x->CS = (float)x->bact + (float)(N - 1 - x->nivel) * max;
 }
 
 /**
@@ -226,6 +218,24 @@ float max (float a, float b){
     }
 }
 
+/**
+ * @brief Función que calcula el máximo beneficio de una tarea
+ * @param B - matriz de beneficios
+ * @return máximo beneficio de una tarea
+*/
+float maxMatrix(int B[][N]){
+    int max = 0; // Máximo beneficio de una tarea
+    // Recorrer matriz de beneficios para encontrar el máximo
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++){
+            if (B[i][j] > max) {
+                max = B[i][j];
+            }
+        }
+    }
+    return max;
+}
+
 /** FUNCIONES PRINCIPALES **/
 
 /**
@@ -239,7 +249,8 @@ void asignacionTrivial(int B[][N], NODO s) {
     TLISTA LNV; // Lista de nodos vivos
     NODO raiz, x, y; // Nodo raíz, nodo seleccionado (x) y nodo hijo de x (y)
     float C; // Variable de poda
-    int nNodos = 0; // Número de nodos explorados
+    int nNodos = 1; // Número de nodos explorados
+    float maxMatriz = maxMatrix(B); // Maximo de la matriz
 
     /* INICIALIZACIONES */
 
@@ -261,7 +272,7 @@ void asignacionTrivial(int B[][N], NODO s) {
 
     // Llamadas a funciones para cota inferior, cota superior y beneficio estimado
     CItrivial(&raiz);
-    CStrivial(&raiz, B);
+    CStrivial(&raiz, B, maxMatriz);
     BE(&raiz);
 
     // Inicialización variable de poda
@@ -277,7 +288,6 @@ void asignacionTrivial(int B[][N], NODO s) {
     // Bucle principal de ramificación y poda
     while (!esListaVacia(LNV)) {
         x = seleccionar(&LNV); // Selecciona x y lo elimina de la lista
-        nNodos++; // Incrementa el número de nodos
         if (x.CS > C) { // Ramificamos si hay potencial
             for (int i = 0; i < N; i++) { // Generar cada hijo y de x
                 y.nivel = x.nivel + 1; // Nivel del hijo y es el siguiente al de x
@@ -293,8 +303,10 @@ void asignacionTrivial(int B[][N], NODO s) {
 
                     // Calcular CI, CS y BE para nodo y
                     CItrivial(&y);
-                    CStrivial(&y, B);
+                    CStrivial(&y, B, maxMatriz);
                     BE(&y);
+                    
+                    nNodos++; // Incrementa el número de nodos
 
                     // Actualizar mejor solución y variable de poda
                     if (esSolucion(y) && y.bact > s.bact) {
@@ -327,11 +339,12 @@ void asignacionTrivial(int B[][N], NODO s) {
  * @param nNodos - numero de nodos
  */
 void asignacionPrecisa(int B[][N], NODO s) {
+
     /* DECLARACION DE VARIABLES */
     TLISTA LNV; // Lista de nodos vivos
     NODO raiz, x, y; // Nodo raíz, nodo seleccionado (x) y nodo hijo de x (y)
     float C; // Variable de poda
-    int Nodos = 0; // Número de nodos vivos
+    
 
     /* INICIALIZACIONES */
 
@@ -370,7 +383,7 @@ void asignacionPrecisa(int B[][N], NODO s) {
     // Bucle principal de ramificación y poda
     while (!esListaVacia(LNV)) {
         x = seleccionar(&LNV); // Selecciona x y lo elimina de la lista
-        Nodos++; // Incrementa el número de nodos
+        
         if (x.CS > C) { // Ramificamos si hay potencial
             for (int i = 0; i < N; i++) { // Generar cada hijo y de x
                 y.nivel = x.nivel + 1; // Nivel del hijo y es el siguiente al de x
@@ -389,17 +402,28 @@ void asignacionPrecisa(int B[][N], NODO s) {
                     CSprecisa(&y, B);
                     BE(&y);
 
+                    printf("Nodo y: %d CS: %f CI: %f\n", Nodos, y.CS, y.CI);
+
+                    Nodos++; // Incrementa el número de nodos
+
                     if (!esSolucion(y) && y.CS >= C && y.CS == y.CI) { // Si CS == CI, asignación voraz
                         y = solAsignacionVoraz(y, B);
+                        
+                        printf("\t ALGORIMTO VORAZ Nodo y: %d CS: %f CI: %f\n", Nodos, y.CS, y.CI);
                         s = y; // s es la mejor solución hasta ahora
+                        C = max(C,y.CI); // Actualizo la variable de poda
+
                         break; // Termina la búsqueda, no analizo a los demas hermanos
                     }
 
                     // Actualizar mejor solución y variable de poda
                     if (esSolucion(y) && y.bact > s.bact) {
                         s = y; // s es la mejor solución hasta ahora
-                        C = max(C, (float)y.bact);
-                    } else if (!esSolucion(y) && y.CS > C) {
+                        C = max(C, (float)y.bact); // Actualizo la variable de poda
+
+                    } 
+
+                    else if (!esSolucion(y) && y.CS > C) {
                         insertarElementoLista(&LNV, primeroLista(LNV), y);
                         C = max(C, y.CI);
                     }
@@ -416,7 +440,7 @@ void asignacionPrecisa(int B[][N], NODO s) {
     printf("\tBeneficio acumulado: %d\n", s.bact);
     printf("\tAsignaciones de tareas: { ");
     for (int i = 0; i < N; i++) {
-        printf("%d ", s.tupla[i] + 1);
+        printf("%d ", s.tupla[i]);
     }
     printf("}\n");
     printf("\tNumero de nodos explorados: %d\n\n", Nodos);
